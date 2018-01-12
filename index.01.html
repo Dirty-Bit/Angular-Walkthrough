@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<!-- 
+    designate the root element of the application
+    
+    set the location of the app 
+    
+    the name of the app (optional)    
+-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="firstAngularApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Angular App</title>
+</head>
+
+<!--
+    set the controller as VM (view model)
+    this sets up the data binding in the constructor when registering the controller to the module
+
+    replaced $scope from previous versions of angular
+-->
+<body ng-controller="mainController as vm">
+    
+    <h1>Hello {{vm.hello}}!</h1>
+
+    <!-- 
+        use ng-model to bind the value of the input to the controller 
+        
+        2-way data binding: changes here will automatically change in the double curly above
+    -->
+    <input type="text" ng-model="vm.hello" />
+
+
+    <p>Search by value</p>
+    <input type="text" ng-model="vm.search" />
+
+
+    <h3>List of fruits:</h3>
+
+    <!-- 
+        ng-repeat: instantiates a template once per item from a collection. 
+
+        pipe denotes a filter
+
+    -->
+    <ul>
+        <li ng-repeat="fruit in vm.fruits | filter: vm.search">{{fruit | makePlural}}</li>
+    </ul>
+    
+    <!-- 
+       ng-click: specify custom behavior when an element is clicked 
+    -->
+    <button ng-click="vm.alertMe()">Alert</button>
+
+    <!--
+        ng-repeat: instantiates a template once per item in a collection
+        this collection is found from the jsonplaceholder request
+        which returns a set of data that we will use to populate this
+        particular unordered list
+    -->
+    <p>list of nonsense data</p>
+
+    <!-- pull the template in as a component -->
+    <posts-list></posts-list>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+    <script src="app.01.js"></script>
+    <script src="posts-list/posts-list.component.js"></script>
+</body>
+</html>
